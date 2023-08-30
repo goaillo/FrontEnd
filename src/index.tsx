@@ -5,6 +5,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Home from './home/home';
 import App from './app/App';
+import AuthRequiredRoute from './service/requiredAuth';
 
 function getCookie(name: string): string|null {
 	const nameLenPlus = (name.length + 1);
@@ -34,12 +35,14 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />}>
+        <Route path="/login" element={<App />}>
           <Route index element={<App />} />
         </Route>
-        <Route path="/home" element={<Home />}>
-          <Route index element={<Home />} />
-        </Route>
+        <Route path="/home" index element={
+          <AuthRequiredRoute>
+            <Home />
+          </AuthRequiredRoute>
+        } />
       </Routes>
     </BrowserRouter>
   );

@@ -1,22 +1,41 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-import App from '../app/App';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-// class AuthRequiredRoute extends Component{
-//     render() {
-//         const isLogin = () => {
-//             return true;
-            // if () {
-            //     return true;
-            // }
-            // return false;
-        // }
-        // if(!isLogin()){
-        //     return <Route path="/" element={<App />}/>
-        // }else{
-        //     return (<Route path={this.props.path} exact component={this.props.component} />)
-        // }
-//     }
-// }
+function getCookie(name: string): string|null {
+	const nameLenPlus = (name.length + 1);
+	return document.cookie
+		.split(';')
+		.map(c => c.trim())
+		.filter(cookie => {
+			return cookie.substring(0, nameLenPlus) === `${name}=`;
+		})
+		.map(cookie => {
+			return decodeURIComponent(cookie.substring(nameLenPlus));
+		})[0] || null;
+}
 
-// export default AuthRequiredRoute;
+const AuthRequiredRoute = (props:{ children: ReactElement }) => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate();
+    const checkUserToken = () => {
+        const userToken = getCookie('user_logged');
+        if (!userToken || userToken === 'undefined') {
+            setIsLoggedIn(false);
+            return navigate('/login');
+        }
+        setIsLoggedIn(true);
+    }
+    useEffect(() => {
+        checkUserToken();
+    }, [isLoggedIn]);
+    
+    return (
+        <React.Fragment>
+            {
+                isLoggedIn ? props.children : null
+            }
+        </React.Fragment>
+    );
+}
+
+export default AuthRequiredRoute;

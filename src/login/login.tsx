@@ -9,8 +9,19 @@ const validateEmail = (value: string) => {
   return validator.isEmail(value);
 }
 
+export function setCookie(name: string, val: string) {
+  const date = new Date();
+  const value = val;
+
+  // Set it expire in 7 days
+  date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
+
+  // Set it
+  document.cookie = name+"="+value+"; expires="+date.toUTCString()+"; path=/";
+}
+
 class LoginComponent extends Component {
-  public state = {email: "tamere", password: "", emailValidated: false, errorMessage: ""}
+  public state = {email: "email", password: "", emailValidated: false, errorMessage: ""}
 
   public handleLogin = (e : FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,6 +42,8 @@ class LoginComponent extends Component {
       })
       .then(function (response) {
         //handle success
+        const token = response.data.token;
+        setCookie("user_logged", "true")
         let value = (<Navigate to="/home" replace={true} />);
         componentContext.setState({errorMessage : value});
       })
