@@ -21,7 +21,7 @@ export function setCookie(name: string, val: string) {
 }
 
 class LoginComponent extends Component {
-  public state = {email: "email", password: "", emailValidated: false, errorMessage: ""}
+  public state = {email: "", password: "", emailValidated: false, message: ""}
 
   public handleLogin = (e : FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,27 +42,23 @@ class LoginComponent extends Component {
       })
       .then(function (response) {
         //handle success
-        const token = response.data.token;
         setCookie("user_logged", "true")
-        let value = (<Navigate to="/home" replace={true} />);
-        componentContext.setState({errorMessage : value});
+        const value = (<Navigate to="/home" replace={true} />);
+        componentContext.setState({message : value});
       })
-      .catch(function (response) {
+      .catch(function (error) {
         //handle error
-        let value = (
-          <div>
-            Didn't workd
-          </div>
-        )
-        componentContext.setState({errorMessage : value});
+        let value = ""
+        if (error.response.status == 400) {
+          value = "Bad Credentials";
+        } else {
+          value = "Server error try again";
+        }
+        componentContext.setState({message : value});
       });
     } else {
-      let value = (
-        <div>
-          Email not good man
-        </div>
-      )
-      this.setState({errorMessage : value});
+      const value = "Email not valid"
+      this.setState({message : value});
     }
   }
 
@@ -71,20 +67,23 @@ class LoginComponent extends Component {
   }
 
   public render() {
-
     return (
       <div className="Login">
-        <form onSubmit={this.handleLogin}>
-          <label>
+        <form onSubmit={this.handleLogin} className="login-form">
+          <label className="label-input">
             Email:
             <input type="text" value={this.state.email} onChange={this.handleChanges} name="email"/>
           </label>
-          <label>
+          <label className="label-input">
             Password:
-            <input type="text" value={this.state.password} onChange={this.handleChanges} name="password"/>
+            <input type="password" value={this.state.password} onChange={this.handleChanges} name="password"/>
           </label>
-          { this.state.errorMessage }
-          <button type="submit">Login</button>
+          <div className="messageDiv">
+            { this.state.message }
+          </div>
+          <div className="btnDiv">
+            <button type="submit" className="btnLogin">Login</button>
+          </div>
         </form>
       </div>
     )
