@@ -3,35 +3,12 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Home from './home/home';
+import Home from './pages/home/home';
 import App from './app/App';
 import AuthRequiredRoute from './service/requiredAuth';
-
-function getCookie(name: string): string|null {
-	const nameLenPlus = (name.length + 1);
-	return document.cookie
-		.split(';')
-		.map(c => c.trim())
-		.filter(cookie => {
-			return cookie.substring(0, nameLenPlus) === `${name}=`;
-		})
-		.map(cookie => {
-			return decodeURIComponent(cookie.substring(nameLenPlus));
-		})[0] || null;
-}
+import CreatePost from './pages/post/postCreate';
 
 export default function AppRouter() {
-  // TODO Dev if not connected go to login
-  // if (authFails)
-  //   return <Redirect to='/login'  />
-  // }
-
-    {/* <AuthRequiredRoute path="/" element={<App />}>
-    <AuthRequiredRoute index element={<App />} />
-  </AuthRequiredRoute>
-  <AuthRequiredRoute path="/home" element={<Home />} render={requireAuth}>
-    <AuthRequiredRoute index element={<Home />} />
-  </AuthRequiredRoute> */}
   return (
     <BrowserRouter>
       <Routes>
@@ -41,6 +18,11 @@ export default function AppRouter() {
         <Route path="/home" index element={
           <AuthRequiredRoute>
             <Home />
+          </AuthRequiredRoute>
+        } />
+        <Route path="/post" index element={
+          <AuthRequiredRoute>
+            <CreatePost />
           </AuthRequiredRoute>
         } />
       </Routes>

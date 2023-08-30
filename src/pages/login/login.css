@@ -5,6 +5,7 @@
     border-radius: 11px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .login-form,
@@ -17,7 +18,7 @@
 .login-form {
     width: 80%;
     height: 100%;
-    margin: 5px 0px 5px 0px;
+    margin: 5px 0px 10px 0px;
 }
 
 .label-input {
@@ -25,6 +26,7 @@
     font-size: 19px;
     color: black;
     height: 25%;
+    margin: 5px 0px 5px 0px;
 }
 
 .label-input input {
@@ -45,7 +47,7 @@
 .btnLogin {
     height: 40px;
     width: 50%;
-    background: #7aa6ff;
+    background: #4784ff;
     border-radius: 6px;
     color: white;
     border: none;
@@ -56,7 +58,7 @@
 }
 
 .btnLogin:hover {
-    background: #4784ff;
+    background: #7aa6ff;
 }
 
 .messageDiv {

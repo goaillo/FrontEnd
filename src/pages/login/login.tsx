@@ -4,20 +4,10 @@ import { Navigate } from "react-router-dom";
 import axios from 'axios';
 import './login.css';
 import validator from 'validator'
+import { setCookie } from "../../utils/cookie_utils";
 
 const validateEmail = (value: string) => {
   return validator.isEmail(value);
-}
-
-export function setCookie(name: string, val: string) {
-  const date = new Date();
-  const value = val;
-
-  // Set it expire in 7 days
-  date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-
-  // Set it
-  document.cookie = name+"="+value+"; expires="+date.toUTCString()+"; path=/";
 }
 
 class LoginComponent extends Component {
@@ -71,11 +61,11 @@ class LoginComponent extends Component {
       <div className="Login">
         <form onSubmit={this.handleLogin} className="login-form">
           <label className="label-input">
-            Email:
+            Email
             <input type="text" value={this.state.email} onChange={this.handleChanges} name="email"/>
           </label>
           <label className="label-input">
-            Password:
+            Password
             <input type="password" value={this.state.password} onChange={this.handleChanges} name="password"/>
           </label>
           <div className="messageDiv">

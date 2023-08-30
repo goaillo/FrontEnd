@@ -1,0 +1,39 @@
+.LoginHeader {
+    background-color: #7aa6ff;
+    color: white;
+    width: 100%;
+    height: 45px;
+}
+
+.headerBody {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.UserName, .LogoutDiv {
+    background-color: #4784ff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    margin: 5px 10px 5px 10px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.UserName:hover, .LogoutDiv:hover {
+    background-color: #2f74ff;
+}
+
+.LogoutDiv {
+    padding-right: 0px;
+}
+
+.LogoutSvg {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(158deg) brightness(103%) contrast(103%);
+    height: 20px;
+    width: 40px;
+}
