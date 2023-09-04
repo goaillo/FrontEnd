@@ -33,3 +33,34 @@
     width: 200px;
     height: 150px;
 }
+
+.postList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.postCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    margin: 10px 0px 10px 0px;
+    padding: 20px 30px 30px 30px;
+    border-radius: 5px;
+    background-color: #7aa6ff;
+    color: white;
+}
+
+.postCard:hover {
+    background-color: #5f84cd;
+}
+
+.projectDates {
+
+}
+
+.postTitle {
+    font-size: 20px;
+    margin-bottom: 15px;
+}

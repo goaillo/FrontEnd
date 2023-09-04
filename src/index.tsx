@@ -1,32 +1,50 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Home from './pages/home/home';
 import App from './app/App';
 import AuthRequiredRoute from './service/requiredAuth';
-import CreatePost from './pages/post/postCreate';
+import CreatePost from './pages/postCreate/postCreate';
+import ErrorPage from './pages/404/404';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <Navigate to="/home" replace={true} />
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/login",
+    element: (
+      <App />
+    ),
+  },
+  {
+    path: "/home",
+    element: (
+      <AuthRequiredRoute>
+        <Home />
+      </AuthRequiredRoute>
+    ),
+  },
+  {
+    path: "/post",
+    element: (
+      <AuthRequiredRoute>
+        <CreatePost />
+      </AuthRequiredRoute>
+    ),
+  },
+]);
+
 
 export default function AppRouter() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<App />}>
-          <Route index element={<App />} />
-        </Route>
-        <Route path="/home" index element={
-          <AuthRequiredRoute>
-            <Home />
-          </AuthRequiredRoute>
-        } />
-        <Route path="/post" index element={
-          <AuthRequiredRoute>
-            <CreatePost />
-          </AuthRequiredRoute>
-        } />
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   );
 }
 

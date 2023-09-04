@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from "../utils/cookie_utils";
+import axios from 'axios';
 
 const AuthRequiredRoute = (props:{ children: ReactElement }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -9,7 +10,18 @@ const AuthRequiredRoute = (props:{ children: ReactElement }) => {
         const userToken = getCookie('user_logged');
         if (!userToken || userToken === 'undefined') {
             setIsLoggedIn(false);
-            return navigate('/login');
+            // Logout from BackEnd
+            axios({
+                method: "get",
+                url: "logout",
+              })
+              .then(function () {
+                return navigate('/login');
+              })
+              .catch(function (error) {
+                console.error(error)
+                return navigate('/login');
+            });
         }
         setIsLoggedIn(true);
     }

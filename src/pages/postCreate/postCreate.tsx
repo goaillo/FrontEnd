@@ -57,7 +57,6 @@ class CreatePost extends Component {
     })
     .catch(function (error) {
       //handle error
-      console.log(bodyLogin)
       let value = ""
       if (error.response.status == 400) {
         value = "Bad Credentials";
