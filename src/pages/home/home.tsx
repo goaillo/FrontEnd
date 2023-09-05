@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Navigate } from 'react-router-dom'
 import axios from 'axios'
 import moment from 'moment'
@@ -7,9 +7,9 @@ import LoginHeader from '../header/header'
 
 import './home.css'
 
-class Home extends Component {
+class Home extends React.Component {
   // TODO better type handling
-  public state = { redirect: '', posts: [{ name: '', image_path: '', start_date: '', end_date: '' }] }
+  public state = { redirect: '', posts: [{ post_id: '', name: '', image_path: '', start_date: '', end_date: '' }] }
 
   public fetchPosts (): void {
     axios({
@@ -23,6 +23,7 @@ class Home extends Component {
           const startDate = moment(response.data[i].start_date)
           const endDate = moment(response.data[i].end_date)
           posts.push({
+            post_id: response.data[i].post_id,
             name: response.data[i].post_name,
             image_path: response.data[i].image_path,
             start_date: startDate.isValid() ? startDate.format('DD-MM-YYYY') : '',
@@ -41,8 +42,12 @@ class Home extends Component {
     this.fetchPosts()
   }
 
-  public createPost (): void {
-    this.setState({ redirect: (<Navigate to="/post" replace={true} />) })
+  createPost = (): void => {
+    this.setState({ redirect: (<Navigate to="/post" />) })
+  }
+
+  getPost = (id: string): void => {
+    this.setState({ redirect: (<Navigate to={'/post/' + id} />) })
   }
 
   public render (): React.ReactNode {
@@ -56,29 +61,31 @@ class Home extends Component {
               Add Post
             </div>
           </div>
-          <div>
-            <h1>Projets List</h1>
-            <ul className='postList'>
-            {
-              this.state.posts.map(post => {
-                if (post != null && post.name !== '') {
-                  return (
-                    <li key={`movie-${post.name}`} className='postCard'>
-                      <div className='postTitle'>
-                        {post.name}
-                      </div>
-                      <img src={post.image_path} alt="new" className='postImage'/>
-                      <div className='projectDates'>
-                        {post.start_date} :: { post.end_date !== '' ? post.end_date : '...' }
-                      </div>
-                    </li>
-                  )
-                } else {
-                  return null
-                }
-              })
-            }
-            </ul>
+          <h1>Projects List</h1>
+          <div className='postContent'>
+            <div className='postList'>
+              <ul>
+              {
+                this.state.posts.map(post => {
+                  if (post != null && post.name !== '') {
+                    return (
+                      <li key={`movie-${post.name}`} className='postCard' onClick={() => { this.getPost(post.post_id) }}>
+                        <div className='postTitle'>
+                          {post.name}
+                        </div>
+                        <img src={post.image_path} alt="new" className='postImage'/>
+                        <div className='projectDates'>
+                          {post.start_date} - { post.end_date !== '' ? post.end_date : '...' }
+                        </div>
+                      </li>
+                    )
+                  } else {
+                    return null
+                  }
+                })
+              }
+              </ul>
+            </div>
           </div>
         </div>
       </div>

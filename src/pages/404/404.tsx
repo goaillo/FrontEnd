@@ -1,17 +1,14 @@
-import React from 'react';
-import { useRouteError } from "react-router-dom";
+import React from 'react'
 
-export default function ErrorPage() {
-  const error: any = useRouteError();
+import './404.css'
 
+export default function ErrorPage (): JSX.Element {
   // TODO make some beauty
   return (
-    <div id="error-page">
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
-      <p>
-        <i>{error.statusText || error.message}</i>
-      </p>
+    <div className="notFoundDiv">
+      <div className="notFoundModal">
+        <img src="/404.jpg" alt="image" className='imageNotFound'/>
+      </div>
     </div>
-  );
+  )
 }

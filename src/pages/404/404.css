@@ -1,0 +1,24 @@
+.notFoundDiv {
+    background-color: #7aa6ff8c;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+}
+
+.notFoundModal {
+    min-width: 40vh;
+    padding: 40px;
+    background-color: white;
+    border-radius: 11px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imageNotFound {
+    height: 300px;
+    width: 300px;
+}

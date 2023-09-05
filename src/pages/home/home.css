@@ -1,10 +1,11 @@
 .bodyHome {
     background-color: #e5eeff;
-    height: 100%;
+    height: calc(100% - 47px);
+    overflow: hidden;
 }
 
 .Home {
-    min-height: 100vh;
+    height: 100vh;
 }
 
 .actionButtonDiv {
@@ -56,11 +57,11 @@
     background-color: #5f84cd;
 }
 
-.projectDates {
-
-}
-
 .postTitle {
     font-size: 20px;
     margin-bottom: 15px;
+}
+
+.postContent {
+    overflow: scroll;
 }

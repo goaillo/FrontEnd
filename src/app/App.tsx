@@ -1,15 +1,17 @@
-import React from 'react';
-import './App.css';
-import LoginComponent from '../pages/login/login'; // Import a component from another file
+import React from 'react'
 
-function App() {
+import LoginComponent from '../pages/login/login' // Import a component from another file
+
+import './App.css'
+
+function App (): JSX.Element {
   return (
     <div className="App">
       <div className="App-body">
         <LoginComponent/>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
